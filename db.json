@@ -1,0 +1,22 @@
+{
+  "blogs": [
+    {
+      "id": "1",
+      "title": "Getting Started with React Router",
+      "content": "React Router is the most popular routing library for React applications. In this post, we'll explore the basics of React Router and how to get started with it.",
+      "createdAt": "2026-01-15T10:00:00Z"
+    },
+    {
+      "title": "Understanding React Hooksadasdasd",
+      "content": "React Hooks have revolutionized how we write React components. Let's dive deep into useState, useEffect, and other essential hooks.",
+      "createdAt": "2026-01-20T14:30:00Z",
+      "id": "2"
+    },
+    {
+      "id": "3",
+      "title": "Building a Full-Stack App with React",
+      "content": "Learn how to build a complete full-stack application using React for the frontend and Node.js for the backend.",
+      "createdAt": "2026-01-25T09:15:00Z"
+    }
+  ]
+}
