@@ -1,9 +1,7 @@
-import { Form, useLoaderData, useLocation } from 'react-router';
+import { Form } from 'react-router';
 
 export default function BlogEditor() {
-  const { blog } = useLoaderData();
-  const location = useLocation();
-  const isNew = !blog || location.pathname === '/blogs/create';
+  const isNew = true;
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-3xl">
