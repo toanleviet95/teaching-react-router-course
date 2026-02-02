@@ -2,7 +2,7 @@
  * Loader for fetching all blogs
  */
 export async function blogListLoader() {
-  const response = await fetch('http://localhost:3001/blogs');
+  const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/blogs`);
   const blogs = await response.json();
   return { blogs };
 }
@@ -11,9 +11,11 @@ export async function blogListLoader() {
  * Loader for fetching a single blog by ID
  */
 export async function blogDetailLoader({ params }) {
-  const response = await fetch(`http://localhost:3001/blogs/${params.id}`);
+  const response = await fetch(
+    `${import.meta.env.VITE_API_ENDPOINT}/blogs/${params.id}`
+  );
   if (!response.ok) {
-    throw new Response('Blog not found', { status: 404 });
+    throw new Response("Blog not found", { status: 404 });
   }
   const blog = await response.json();
   return { blog };
@@ -25,13 +27,15 @@ export async function blogDetailLoader({ params }) {
  */
 export async function blogEditorLoader({ params }) {
   // Handle create route (no id param) or new route (id === 'new')
-  if (!params.id || params.id === 'new') {
+  if (!params.id || params.id === "new") {
     return { blog: null };
   }
 
-  const response = await fetch(`http://localhost:3001/blogs/${params.id}`);
+  const response = await fetch(
+    `${import.meta.env.VITE_API_ENDPOINT}/blogs/${params.id}`
+  );
   if (!response.ok) {
-    throw new Response('Blog not found', { status: 404 });
+    throw new Response("Blog not found", { status: 404 });
   }
   const blog = await response.json();
   return { blog };
