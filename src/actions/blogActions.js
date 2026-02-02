@@ -12,7 +12,7 @@ export async function blogEditorAction({ request, params }) {
 
   if (isNew) {
     // Create new blog
-    const response = await fetch('http://localhost:3001/blogs', {
+    const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/blogs`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -27,10 +27,10 @@ export async function blogEditorAction({ request, params }) {
     return redirect(`/blogs/${newBlog.id}`);
   } else {
     // Update existing blog
-    const response = await fetch(`http://localhost:3001/blogs/${params.id}`);
+    const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/blogs/${params.id}`);
     const existingBlog = await response.json();
 
-    await fetch(`http://localhost:3001/blogs/${params.id}`, {
+    await fetch(`${import.meta.env.VITE_API_ENDPOINT}/blogs/${params.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ export async function blogEditorAction({ request, params }) {
  * Action for deleting a blog
  */
 export async function blogDetailAction({ params }) {
-  await fetch(`http://localhost:3001/blogs/${params.id}`, {
+  await fetch(`${import.meta.env.VITE_API_ENDPOINT}/blogs/${params.id}`, {
     method: 'DELETE',
   });
   return redirect('/blogs');

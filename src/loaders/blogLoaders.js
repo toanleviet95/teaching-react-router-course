@@ -2,7 +2,8 @@
  * Loader for fetching all blogs
  */
 export async function blogListLoader() {
-  const response = await fetch('http://localhost:3001/blogs');
+  console.log('API_ENDPOINT:', import.meta.env.VITE_API_ENDPOINT);
+  const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/blogs`);
   const blogs = await response.json();
   return { blogs };
 }
@@ -11,7 +12,7 @@ export async function blogListLoader() {
  * Loader for fetching a single blog by ID
  */
 export async function blogDetailLoader({ params }) {
-  const response = await fetch(`http://localhost:3001/blogs/${params.id}`);
+  const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/blogs/${params.id}`);
   if (!response.ok) {
     throw new Response('Blog not found', { status: 404 });
   }

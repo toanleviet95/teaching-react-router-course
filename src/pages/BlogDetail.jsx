@@ -1,12 +1,17 @@
 import { Form, Link, useLoaderData } from 'react-router';
+import { useAuth } from '@clerk/clerk-react';
 
 export default function BlogDetail() {
   const { blog } = useLoaderData();
+  const { isSignedIn } = useAuth();
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="mb-6">
-        <Link to="/blogs" className="text-blue-600 hover:text-blue-800 font-medium transition-colors">
+        <Link
+          to="/blogs"
+          className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
+        >
           ← Back to Blogs
         </Link>
       </div>
@@ -22,30 +27,32 @@ export default function BlogDetail() {
           {blog.content}
         </div>
 
-        <div className="flex gap-3">
-          <Link
-            to={`/blogs/${blog.id}/edit`}
-            className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-md"
-          >
-            Edit Blog
-          </Link>
-
-          <Form
-            method="post"
-            onSubmit={(e) => {
-              if (!confirm('Are you sure you want to delete this blog?')) {
-                e.preventDefault();
-              }
-            }}
-          >
-            <button
-              type="submit"
-              className="px-6 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors shadow-md"
+        {isSignedIn && (
+          <div className="flex gap-3">
+            <Link
+              to={`/blogs/${blog.id}/edit`}
+              className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-md"
             >
-              Delete Blog
-            </button>
-          </Form>
-        </div>
+              Edit Blog
+            </Link>
+
+            <Form
+              method="post"
+              onSubmit={(e) => {
+                if (!confirm('Are you sure you want to delete this blog?')) {
+                  e.preventDefault();
+                }
+              }}
+            >
+              <button
+                type="submit"
+                className="px-6 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors shadow-md"
+              >
+                Delete Blog
+              </button>
+            </Form>
+          </div>
+        )}
       </article>
     </div>
   );
