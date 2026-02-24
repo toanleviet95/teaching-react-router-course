@@ -1,12 +1,16 @@
-import { useAuth } from '@clerk/clerk-react';
-import { Navigate, Outlet, useLocation } from 'react-router';
+import { useAuth } from "@clerk/clerk-react";
+import { Navigate, Outlet, useLocation } from "react-router";
 
 export default function ProtectedRoute() {
   const { isSignedIn, isLoaded } = useAuth();
   const location = useLocation();
 
   if (!isLoaded) {
-    return <div className="flex justify-center items-center min-h-[50vh]">Loading...</div>;
+    return (
+      <div className="flex justify-center items-center min-h-[50vh]">
+        Loading...
+      </div>
+    );
   }
 
   if (!isSignedIn) {

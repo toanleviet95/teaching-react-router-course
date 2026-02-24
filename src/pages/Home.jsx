@@ -1,13 +1,24 @@
-import { Link } from 'react-router';
+import { Link } from "react-router";
+import { useUser } from "@clerk/clerk-react";
 
 export default function Home() {
+  const { isSignedIn, user } = useUser();
+
   return (
     <div className="bg-gradient-to-br from-blue-50 to-indigo-100">
       <div className="container mx-auto px-4 py-20">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">My Portfolio</h1>
+          <h1 className="text-5xl font-bold text-gray-900 mb-6">
+            My Portfolio
+          </h1>
+          {isSignedIn && (
+            <p className="text-xl text-gray-600 mb-10">
+              Hi {user.firstName} {user.lastName}
+            </p>
+          )}
           <p className="text-xl text-gray-600 mb-10">
-            Discover insightful articles about web development, React, and modern technologies.
+            Discover insightful articles about web development, React, and
+            modern technologies.
           </p>
           <div className="flex justify-center gap-4">
             <Link

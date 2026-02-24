@@ -1,21 +1,21 @@
-import { redirect } from 'react-router';
+import { redirect } from "react-router";
 
 /**
  * Action for creating a new blog or updating an existing one
  */
 export async function blogEditorAction({ request, params }) {
   const formData = await request.formData();
-  const title = formData.get('title');
-  const content = formData.get('content');
+  const title = formData.get("title");
+  const content = formData.get("content");
 
-  const isNew = !params.id || params.id === 'new';
+  const isNew = !params.id || params.id === "new";
 
   if (isNew) {
     // Create new blog
     const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/blogs`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         title,
@@ -24,16 +24,18 @@ export async function blogEditorAction({ request, params }) {
       }),
     });
     const newBlog = await response.json();
-    return redirect(`/blogs/${newBlog.id}`);
+    return await redirect(`/blogs/${newBlog.id}`);
   } else {
     // Update existing blog
-    const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/blogs/${params.id}`);
+    const response = await fetch(
+      `${import.meta.env.VITE_API_ENDPOINT}/blogs/${params.id}`
+    );
     const existingBlog = await response.json();
 
     await fetch(`${import.meta.env.VITE_API_ENDPOINT}/blogs/${params.id}`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         id: params.id,
@@ -42,7 +44,7 @@ export async function blogEditorAction({ request, params }) {
         createdAt: existingBlog.createdAt,
       }),
     });
-    return redirect(`/blogs/${params.id}`);
+    return await redirect(`/blogs/${params.id}`);
   }
 }
 
@@ -51,7 +53,7 @@ export async function blogEditorAction({ request, params }) {
  */
 export async function blogDetailAction({ params }) {
   await fetch(`${import.meta.env.VITE_API_ENDPOINT}/blogs/${params.id}`, {
-    method: 'DELETE',
+    method: "DELETE",
   });
-  return redirect('/blogs');
+  return redirect("/blogs");
 }
